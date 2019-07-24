@@ -1,0 +1,8 @@
+ininstall.packages("tidyverse")
+install.packages("rmarkdown")
+#install.packages("httr")
+install.packages("shinydashboard")
+#install.packages('leaflet')
+install.packages("naniar")
+install.packages("units")
+install.packages("ggforce")

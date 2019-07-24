@@ -1,0 +1,69 @@
+---
+title: "functions"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Creating functions in R
+```{r}
+library(tidyverse)
+library(naniar)
+library(units)
+library(ggforce)
+
+?airquality
+
+airquality_impute <- 
+  airquality %>% 
+  naniar::impute_median_all() %>% 
+  mutate(date = lubridate::make_date(year = 1973,
+                                     month = Month,
+                                     day = Day 
+                                     ),
+         Month = month.abb[Month] %>% 
+           factor(levels = month.abb)) %>% 
+  mutate(Temp = set_units(Temp, "°F"),
+         Temp = set_units(Temp,"°C")) 
+
+ggplot(data = airquality_impute,
+       mapping = aes(x = Day, y = Ozone, colour = Month, linetype = Month)) +
+  geom_line() 
+```
+
+
+```{r}
+ggplot(data = airquality_impute,
+       mapping = aes( x = Temp,
+                     
+                      fill = Month,
+                      colour = Month
+                      )
+       ) +
+  geom_density(alpha = 0.3) 
+```
+
+```{r}
+ggplot(data = mutate(airquality_impute,
+                     Temp = as.numeric(Temp)),
+       mapping = aes( x = Day,
+                     y = Month,
+                      fill = Temp
+                      )
+       ) +
+  geom_raster()  +
+  scale_fill_viridis_c(option = "plasma")
+```
+
+ 
+
+
+
+  
+
+
+
+```
+
